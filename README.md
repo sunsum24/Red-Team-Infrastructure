@@ -16,22 +16,17 @@ This repository documents the architecture for a secure, resilient Red Team infr
 
 ## 🏗️ Infrastructure Architecture
 
-<img width="1280" height="640" alt="operation flow" src="https://github.com/user-attachments/assets/2739fbf1-6035-49b0-ac3b-a8fb44f6cfd7" />
-
+![Red Team Operation Flow](./operation flow.jpeg)
 
 ### 1. The Attack Platform (Operator)
 The operator uses a hardened Linux VM (e.g., Kali or Ubuntu) located behind a VPN or a dedicated VPS. No direct connection is ever made to the target from the operator's true IP address.
 
-### 2. Phishing & Payload Delivery
-- **Phishing Domain:** A "typosquatted" domain (e.g., `company-login.com` instead of `company.com`) registered with privacy protection.
-- **SMTP Server:** A dedicated VPS running Postfix, configured with SPF, DKIM, and DMARC to appear legitimate to email filters.
-
-### 3. The Redirector (The Shield)
+### 2. The Redirector (The Shield)
 Instead of pointing the payload directly to the C2 server, it points to a **Redirector** (e.g., an Nginx reverse proxy or Apache mod_rewrite).
 - **Function:** The redirector forwards legitimate-looking traffic (e.g., HTTP/S) to the C2 server, but blocks traffic from known security vendors (e.g., VirusTotal scanners, Mandiant IPs).
 - **Benefit:** If the redirector is blacklisted, the operator simply spins up a new one without having to rebuild the entire C2 infrastructure.
 
-### 4. Command & Control (C2) Server
+### 3. Command & Control (C2) Server
 The C2 server is hosted on a completely different VPS provider. It only accepts connections from the Redirector's IP address, ensuring it remains hidden from the target network.
 
 ---
