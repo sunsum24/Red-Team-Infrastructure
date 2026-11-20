@@ -16,7 +16,8 @@ This repository documents the architecture for a secure, resilient Red Team infr
 
 ## 🏗️ Infrastructure Architecture
 
-![Red Team Operation Flow](./operation flow.jpeg)
+<img width="1280" height="640" alt="operation flow" src="https://github.com/user-attachments/assets/79b2c0e9-f29d-4ba2-a1a0-c36faa6a4b52" />
+
 
 ### 1. The Attack Platform (Operator)
 The operator uses a hardened Linux VM (e.g., Kali or Ubuntu) located behind a VPN or a dedicated VPS. No direct connection is ever made to the target from the operator's true IP address.
